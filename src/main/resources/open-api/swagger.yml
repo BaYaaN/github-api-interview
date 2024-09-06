@@ -1,0 +1,90 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+tags:
+  - name: Github Controller
+    description: Exposed controller for github metadata
+paths:
+  /user/{username}/repos:
+    get:
+      tags:
+        - Github Controller
+      summary: get user repo metadata
+      description: get user repo which are not forks name and all branches with last sha
+      operationId: getUserRepositoriesMetadata
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Accept
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserRepoMetadata'
+        '400':
+          description: bad request
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserRepoMetadata'
+        '404':
+          description: resource not found
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserRepoMetadata'
+        '406':
+          description: not supported media type
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserRepoMetadata'
+        '500':
+          description: internal server error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserRepoMetadata'
+components:
+  schemas:
+    Branch:
+      type: object
+      properties:
+        name:
+          type: string
+        sha:
+          type: string
+    UserRepoMetadata:
+      type: object
+      properties:
+        name:
+          type: string
+        login:
+          type: string
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'

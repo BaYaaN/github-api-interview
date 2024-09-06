@@ -1,0 +1,14 @@
+integration:
+  rest:
+    api:
+      github:
+        apiVersionHeader: 2022-11-28
+        authHeader: <MUST_BE_OVERRIDE_FROM_VAULT_OR_CONFIG_SERVER>
+        url: https://api.github.com
+
+feign:
+  github:
+    retry:
+      period: 200
+      maxPeriod: 500
+      maxAttempts: 3

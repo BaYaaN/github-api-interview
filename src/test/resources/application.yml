@@ -1,0 +1,18 @@
+integration:
+  rest:
+    api:
+      github:
+        apiVersionHeader: 2022-11-28
+        authHeader: test_token
+        url: http://localhost:${wiremock.server.port}
+
+wiremock:
+  server:
+    port: 10870
+
+feign:
+  github:
+    retry:
+      period: 200
+      maxPeriod: 500
+      maxAttempts: 3
